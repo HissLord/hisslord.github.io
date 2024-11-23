@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'SUIL'; 
+    src: url('Segoe UI.ttf');
+}
+
 body {
     background-image: linear-gradient(rgb(0, 6, 43), rgb(0, 1, 22));
     background-color: black;
@@ -9,6 +14,7 @@ body {
 h1 {
     background-image: linear-gradient(rgb(0, 9, 70), rgb(0, 3, 54));
     color: white;
+    font-family: 'SUIL';
     height: 100px;
 }
 
