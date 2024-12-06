@@ -79,6 +79,7 @@ p {
     background-size: cover;
     border: none;
     cursor: crosshair;
+    text-align: center;
 }
 #layslogo .other-content {
     display: none;
