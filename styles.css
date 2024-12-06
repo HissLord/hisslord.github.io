@@ -78,6 +78,7 @@ p {
     background-image: url('laysPargs.png');
     background-size: cover;
     border: none;
+    cursor: crosshair;
 }
 #layslogo .other-content {
     display: none;
