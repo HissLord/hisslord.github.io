@@ -9,7 +9,7 @@
     <script>
         // Function to fetch the current NTP time (Unix timestamp) using worldtimeapi.org
         async function getNTPTime() {
-            const response = await fetch('https://worldtimeapi.org/api/ip');  // Using a public NTP-like API
+            const response = await fetch('http://worldclockapi.com');  // Using a public NTP-like API
             const data = await response.json();
             return Math.floor(new Date(data.unixtime * 1000) / 1000); // Return NTP time (Unix timestamp in seconds)
         }
