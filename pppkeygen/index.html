@@ -9,24 +9,28 @@
     <script>
         function generateKey() {
             let passphrase = document.getElementById("passphrase").value;
-
+            
             if (!passphrase) {
                 alert("Please enter a passphrase!");
                 return;
             }
-
+            
             let random_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             let random_part = '';
             for (let i = 0; i < 10; i++) {
                 random_part += random_characters.charAt(Math.floor(Math.random() * random_characters.length));
             }
-
+            
             let current_time = Math.floor(Date.now() / 1000);
             let expiration_time = current_time + 86400; // 24 hours from now
-
+            
+            // Combine passphrase, random part, and expiration time into a single string
             let combined_data = passphrase + random_part + expiration_time;
+            
+            // Hash the combined data using SHA-256
             let key = CryptoJS.SHA256(combined_data).toString(CryptoJS.enc.Hex).substring(0, 20);
-
+            
+            // Display the generated key, random part, and expiration time
             document.getElementById("key-output").innerText = "Generated Key: " + key;
             document.getElementById("random-part-output").innerText = "Random Part: " + random_part;
             document.getElementById("expiration-output").innerText = "Expiration Time: " + new Date(expiration_time * 1000).toLocaleString();
