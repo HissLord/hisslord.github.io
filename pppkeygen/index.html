@@ -22,14 +22,15 @@
             }
 
             let current_time = Math.floor(Date.now() / 1000);
-
             let expiration_time = current_time + 86400;
 
             let combined_data = passphrase + random_part + expiration_time;
-
             let key = CryptoJS.SHA256(combined_data).toString(CryptoJS.enc.Hex).substring(0, 20);
 
+            // Display the generated key and random part
             document.getElementById("key-output").innerText = "Generated Key: " + key;
+            document.getElementById("random-part-output").innerText = "Random Part: " + random_part;
+            document.getElementById("expiration-output").innerText = "Expiration Time: " + new Date(expiration_time * 1000).toLocaleString();
         }
     </script>
 </head>
@@ -37,6 +38,9 @@
     <h1>Key Generator</h1>
     <input type="text" id="passphrase" placeholder="Enter Passphrase">
     <button class="button2" onclick="generateKey()">Generate Key</button>
+    
     <p id="key-output"></p>
+    <p id="random-part-output"></p>
+    <p id="expiration-output"></p>
 </body>
 </html>
