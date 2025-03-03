@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="../styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
     <script>
+        // Function to fetch the current NTP time (Unix timestamp) using worldtimeapi.org
         async function getNTPTime() {
-            const response = await fetch('https://pool.ntp.org');
+            const response = await fetch('https://worldtimeapi.org/api/ip');  // Using a public NTP-like API
             const data = await response.json();
-            return Math.floor(new Date(data.unixtime * 1000) / 1000);
+            return Math.floor(new Date(data.unixtime * 1000) / 1000); // Return NTP time (Unix timestamp in seconds)
         }
 
         async function generateKey() {
@@ -26,17 +27,20 @@
                 random_part += random_characters.charAt(Math.floor(Math.random() * random_characters.length));
             }
         
-            let current_time = await getNTPTime();
-            let expiration_time = current_time + 86400;
+            let current_time = await getNTPTime();  // Get the current NTP time
+            let expiration_time = current_time + 86400;  // Key expires in 1 day (86400 seconds)
 
-            let combined_data = passphrase + random_part + current_time;
+            let combined_data = passphrase + random_part + current_time;  // Include NTP time in the key generation
         
+            // Log combined data for debugging
             console.log("Passphrase:", passphrase);
             console.log("Random part:", random_part);
             console.log("Combined data:", combined_data);
         
+            // Generate the key using SHA-256
             let key = CryptoJS.SHA256(combined_data).toString(CryptoJS.enc.Hex).substring(0, 20);
         
+            // Output the generated key
             console.log("Generated Key (Hex):", key);
             document.getElementById("key-output").innerText = "Generated Key: " + key;
             document.getElementById("random-part-output").innerText = "Random Part: " + random_part;
