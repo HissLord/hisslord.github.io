@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script>
+        function generateKey() {
+            let passphrase = document.getElementById("passphrase").value;
+
+            if (!passphrase) {
+                alert("Please enter a passphrase!");
+                return;
+            }
+
+            let random_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let random_part = '';
+            for (let i = 0; i < 10; i++) {
+                random_part += random_characters.charAt(Math.floor(Math.random() * random_characters.length));
+            }
+
+            let current_time = Math.floor(Date.now() / 1000);
+
+            let expiration_time = current_time + 86400;
+
+            let combined_data = passphrase + random_part + expiration_time;
+
+            let key = CryptoJS.SHA256(combined_data).toString(CryptoJS.enc.Hex).substring(0, 20);
+
+            document.getElementById("key-output").innerText = "Generated Key: " + key;
+        }
+    </script>
+</head>
+<body>
+    <h1>Key Generator</h1>
+    <input type="text" id="passphrase" placeholder="Enter Passphrase">
+    <button class="button2" onclick="generateKey()">Generate Key</button>
+    <p id="key-output"></p>
+</body>
+</html>
